@@ -1,4 +1,4 @@
-const API_URL = "https://blueprint-ai-38p.onrender.com/api/generate-blueprint";
+const API_URL = "https://blueprint-ai-38pr.onrender.com/api/generate-blueprint";
 
 const generateButton =
     document.getElementById("generateButton");
