@@ -8,7 +8,7 @@ from blueprint_generator import (
 
 app = Flask(__name__)
 
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
 @app.route("/", methods=["GET"])
