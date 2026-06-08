@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KIRAN_5_BlueprintAI</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="main-header">
+        <div>
+            <h1>KIRAN_5_BlueprintAI</h1>
+            <p>Smart blueprint generator from user requirements</p>
+        </div>
+
+        <span class="header-badge">AI Planning Tool</span>
+    </header>
+
+    <main class="main-container">
+
+        <section class="form-card">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Project Requirements</h2>
+                    <p>Enter your requirements to generate a layout.</p>
+                </div>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="input-group full-width">
+                    <label for="projectName">Project Name</label>
+
+                    <input
+                        type="text"
+                        id="projectName"
+                        value="My Dream House"
+                        placeholder="Enter project name"
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="projectType">Project Type</label>
+
+                    <select id="projectType">
+                        <option value="House">House</option>
+                        <option value="Office">Office</option>
+                        <option value="Shop">Shop</option>
+                        <option value="Apartment">Apartment</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="floors">Number of Floors</label>
+
+                    <input
+                        type="number"
+                        id="floors"
+                        value="1"
+                        min="1"
+                        max="5"
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="plotWidth">Plot Width (feet)</label>
+
+                    <input
+                        type="number"
+                        id="plotWidth"
+                        value="30"
+                        min="10"
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="plotLength">Plot Length (feet)</label>
+
+                    <input
+                        type="number"
+                        id="plotLength"
+                        value="40"
+                        min="10"
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="bedrooms">Bedrooms</label>
+
+                    <input
+                        type="number"
+                        id="bedrooms"
+                        value="3"
+                        min="1"
+                        max="10"
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="bathrooms">Bathrooms</label>
+
+                    <input
+                        type="number"
+                        id="bathrooms"
+                        value="2"
+                        min="1"
+                        max="10"
+                    >
+                </div>
+
+            </div>
+
+            <h3 class="options-title">Additional Requirements</h3>
+
+            <div class="options-grid">
+
+                <label class="option-card">
+                    <input
+                        type="checkbox"
+                        id="includeLivingRoom"
+                        checked
+                    >
+
+                    <span>
+                        <strong>Living Room</strong>
+                        <small>Add a common living area</small>
+                    </span>
+                </label>
+
+                <label class="option-card">
+                    <input
+                        type="checkbox"
+                        id="includeKitchen"
+                        checked
+                    >
+
+                    <span>
+                        <strong>Kitchen</strong>
+                        <small>Add a separate kitchen</small>
+                    </span>
+                </label>
+
+                <label class="option-card">
+                    <input
+                        type="checkbox"
+                        id="includeParking"
+                    >
+
+                    <span>
+                        <strong>Parking</strong>
+                        <small>Add vehicle parking space</small>
+                    </span>
+                </label>
+
+                <label class="option-card">
+                    <input
+                        type="checkbox"
+                        id="includeBalcony"
+                    >
+
+                    <span>
+                        <strong>Balcony</strong>
+                        <small>Add an outdoor balcony</small>
+                    </span>
+                </label>
+
+                <label class="option-card">
+                    <input
+                        type="checkbox"
+                        id="includeDiningRoom"
+                    >
+
+                    <span>
+                        <strong>Dining Room</strong>
+                        <small>Add a dining area</small>
+                    </span>
+                </label>
+
+                <label class="option-card">
+                    <input
+                        type="checkbox"
+                        id="includeStudyRoom"
+                    >
+
+                    <span>
+                        <strong>Study Room</strong>
+                        <small>Add a private study space</small>
+                    </span>
+                </label>
+
+            </div>
+
+            <div class="button-row">
+
+                <button
+                    id="generateButton"
+                    class="primary-button"
+                >
+                    Generate Blueprint
+                </button>
+
+                <button
+                    id="clearButton"
+                    class="secondary-button"
+                >
+                    Clear
+                </button>
+
+            </div>
+
+            <p id="message" class="message"></p>
+
+        </section>
+
+        <section class="output-card">
+
+            <div class="output-header">
+                <div>
+                    <h2>Generated Blueprint</h2>
+                    <p>Your conceptual floor layout appears here.</p>
+                </div>
+
+                <button
+                    id="downloadButton"
+                    class="download-button"
+                    disabled
+                >
+                    Download SVG
+                </button>
+            </div>
+
+            <div
+                id="statistics"
+                class="statistics hidden"
+            >
+
+                <div class="stat-card">
+                    <span>Total Area</span>
+                    <strong id="totalArea">0 sq.ft</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Total Rooms</span>
+                    <strong id="totalRooms">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Plot Size</span>
+                    <strong id="plotSize">0 × 0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Floors</span>
+                    <strong id="floorCount">1</strong>
+                </div>
+
+            </div>
+
+            <div class="blueprint-wrapper">
+
+                <div
+                    id="emptyState"
+                    class="empty-state"
+                >
+                    <div class="empty-icon">⌂</div>
+
+                    <h3>No blueprint generated</h3>
+
+                    <p>
+                        Enter your project requirements and click
+                        Generate Blueprint.
+                    </p>
+                </div>
+
+                <svg
+                    id="blueprint"
+                    viewBox="0 0 900 650"
+                    preserveAspectRatio="xMidYMid meet"
+                ></svg>
+
+            </div>
+
+            <div
+                id="legend"
+                class="legend hidden"
+            >
+                <h3>Blueprint Legend</h3>
+
+                <div id="legendItems"></div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>
+            BlueprintAI produces conceptual layouts only.
+            Construction plans require professional verification.
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
