@@ -5,20 +5,12 @@ from flask_cors import CORS
 
 from blueprint_generator import generate_blueprint, validate_requirements
 
-
 app = Flask(__name__)
 
-CORS(
-    app,
-    resources={
-        r"/*": {
-            "origins": "*"
-        }
-    }
-)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 
-@app.get("/")
+@app.route("/", methods=["GET"])
 def home():
     return jsonify({
         "status": "success",
@@ -26,7 +18,7 @@ def home():
     })
 
 
-@app.get("/api/health")
+@app.route("/api/health", methods=["GET"])
 def health():
     return jsonify({
         "status": "success",
@@ -34,8 +26,27 @@ def health():
     })
 
 
-@app.post("/api/generate-blueprint")
+@app.route("/api/routes", methods=["GET"])
+def show_routes():
+    routes = []
+
+    for rule in app.url_map.iter_rules():
+        routes.append({
+            "path": str(rule),
+            "methods": sorted(list(rule.methods))
+        })
+
+    return jsonify(routes)
+
+
+@app.route("/api/generate-blueprint", methods=["GET", "POST"])
 def generate_blueprint_api():
+    if request.method == "GET":
+        return jsonify({
+            "status": "success",
+            "message": "Generate blueprint API is available. Use POST request."
+        })
+
     try:
         data = request.get_json(silent=True)
 
@@ -68,17 +79,7 @@ def generate_blueprint_api():
             "status": "error",
             "message": str(error)
         }), 500
-@app.get("/api/routes")
-def show_routes():
-    routes = []
 
-    for rule in app.url_map.iter_rules():
-        routes.append({
-            "path": str(rule),
-            "methods": sorted(rule.methods)
-        })
-
-    return jsonify(routes)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
