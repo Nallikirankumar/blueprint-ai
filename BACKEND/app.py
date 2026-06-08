@@ -68,7 +68,17 @@ def generate_blueprint_api():
             "status": "error",
             "message": str(error)
         }), 500
+@app.get("/api/routes")
+def show_routes():
+    routes = []
 
+    for rule in app.url_map.iter_rules():
+        routes.append({
+            "path": str(rule),
+            "methods": sorted(rule.methods)
+        })
+
+    return jsonify(routes)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
