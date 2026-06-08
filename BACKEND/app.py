@@ -1,4 +1,4 @@
-import os
+﻿import os
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -6,7 +6,6 @@ from flask_cors import CORS
 from blueprint_generator import generate_blueprint, validate_requirements
 
 app = Flask(__name__)
-
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 
@@ -29,13 +28,11 @@ def health():
 @app.route("/api/routes", methods=["GET"])
 def show_routes():
     routes = []
-
     for rule in app.url_map.iter_rules():
         routes.append({
             "path": str(rule),
             "methods": sorted(list(rule.methods))
         })
-
     return jsonify(routes)
 
 
@@ -74,7 +71,6 @@ def generate_blueprint_api():
 
     except Exception as error:
         print("Backend error:", error)
-
         return jsonify({
             "status": "error",
             "message": str(error)
@@ -83,9 +79,4 @@ def generate_blueprint_api():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-
-    app.run(
-        host="0.0.0.0",
-        port=port,
-        debug=False
-    )
+    app.run(host="0.0.0.0", port=port, debug=False)
